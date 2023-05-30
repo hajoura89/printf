@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * _printf - Displays output according to a format
  * Description: the function will call the selectPrintingFunction() to
@@ -45,4 +44,10 @@ int _printf(const char *format, ...)
 			p1 += p;
 		}
 	}
+
+	printbuffer(buffer, &index);
+	va_end(list);
+	return (p1);
+}
+
 
