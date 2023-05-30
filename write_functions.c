@@ -1,6 +1,5 @@
 #include "main.h"
 
-/************************* WRITE HANDLE *************************/
 /**
  * write_char - Prints a string
  * @c: char types
@@ -80,7 +79,7 @@ int write_number(int neg, int ind, char buffer[],
  * @buffer: Buffer
  * @flags: Flags
  * @width: width
- * @prec: Precision specifier
+ * @precision: Precision specifier
  * @len: Number length
  * @pad: Pading char
  * @c: Extra char
@@ -92,7 +91,8 @@ int write_num(int index, char buffer[],
 {
 	int i, pad1 = 1;
 
-	if (precision == 0 && index == BUFF_SIZE - 2 && buffer[index] == '0' && width == 0)
+	if (precision == 0 && index == BUFF_SIZE - 2 &&
+			buffer[index] == '0' && width == 0)
 		return (0);
 	if (precision == 0 && index == BUFF_SIZE - 2 && buffer[index] == '0')
 		buffer[index] = pad = ' ';
@@ -113,13 +113,13 @@ int write_num(int index, char buffer[],
 				buffer[--index] = c;
 			return (write(1, &buffer[index], len) + write(1, &buffer[1], i - 1));
 		}
-		else if (!(flags & F_MINUS) && pad == ' ')/* extra char to left of buff */
+		else if (!(flags & F_MINUS) && pad == ' ')
 		{
 			if (c)
 				buffer[--index] = c;
 			return (write(1, &buffer[1], i - 1) + write(1, &buffer[index], len));
 		}
-		else if (!(flags & F_MINUS) && pad == '0')/* extra char to left of padd */
+		else if (!(flags & F_MINUS) && pad == '0')
 		{
 			if (c)
 				buffer[--pad1] = c;
@@ -154,7 +154,7 @@ int write_unsigned(int is_negative, int ind,
 	UNUSED(size);
 
 	if (precision == 0 && ind == BUFF_SIZE - 2 && buffer[ind] == '0')
-		return (0); /* printf(".0d", 0)  no char is printed */
+		return (0);
 
 	if (precision > 0 && precision < len)
 		pad = ' ';
@@ -175,11 +175,11 @@ int write_unsigned(int is_negative, int ind,
 
 		buffer[i] = '\0';
 
-		if (flags & F_MINUS) /* Asign extra char to left of buffer [buffer>padd]*/
+		if (flags & F_MINUS)
 		{
 			return (write(1, &buffer[ind], len) + write(1, &buffer[0], i));
 		}
-		else /* Asign extra char to left of padding [padd>buffer]*/
+		else
 		{
 			return (write(1, &buffer[0], i) + write(1, &buffer[ind], len));
 		}
@@ -209,7 +209,7 @@ int write_address(char buffer[], int index, int len,
 		for (i = 3; i < width - len + 3; i++)
 			buffer[i] = pad;
 		buffer[i] = '\0';
-		if (flags & F_MINUS && pad == ' ')/* Asign extra char to left of buffer */
+		if (flags & F_MINUS && pad == ' ')
 		{
 			buffer[--index] = 'x';
 			buffer[--index] = '0';
@@ -217,7 +217,7 @@ int write_address(char buffer[], int index, int len,
 				buffer[--index] = c;
 			return (write(1, &buffer[index], len) + write(1, &buffer[3], i - 3));
 		}
-		else if (!(flags & F_MINUS) && pad == ' ')/* extra char to left of buffer */
+		else if (!(flags & F_MINUS) && pad == ' ')
 		{
 			buffer[--index] = 'x';
 			buffer[--index] = '0';
@@ -225,7 +225,7 @@ int write_address(char buffer[], int index, int len,
 				buffer[--index] = c;
 			return (write(1, &buffer[3], i - 3) + write(1, &buffer[index], len));
 		}
-		else if (!(flags & F_MINUS) && pad == '0')/* extra char to left of pad */
+		else if (!(flags & F_MINUS) && pad == '0')
 		{
 			if (c)
 				buffer[--pad1] = c;

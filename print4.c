@@ -3,8 +3,8 @@
  * handle_print - Print based on the given
  * format string and arguments.
  * @format: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
  * @ind: ind.
+ * @list: List of arguments to be printed.
  * @buffer: Buffer to handle print.
  * @flags: enabled flags
  * @width:  width.
