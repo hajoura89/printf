@@ -1,6 +1,7 @@
 #include "main.h"
 /**
- * handle_print - Print based on the given format string and arguments.
+ * handle_print - Print based on the given
+ * format string and arguments.
  * @format: Formatted string in which to print the arguments.
  * @list: List of arguments to be printed.
  * @ind: ind.
@@ -60,4 +61,31 @@ int handle_print(const char *format, int *ind, va_list list, char buffer[],
  * Return: Number of chars printed
  */
 
+int non_printable(va_list list, char buffer[],
+		int flags, int width, int precision, int size)
+{
+	int i = 0, marker = 0;
+	char *str = va_arg(list, char *);
 
+	UNUSED(flags);
+	UNUSED(width);
+	UNUSED(precision);
+	UNUSED(size);
+
+	if (str == NULL)
+		return (write(1, "(null)", 6));
+
+	while (str[i] != '\0')
+	{
+		if (ischar_printable(str[i]))
+			buffer[i + marker] = str[i];
+		else
+			marker += append_hex(str[i], buffer, i + marker);
+
+		i++;
+	}
+
+	buffer[i + marker] = '\0';
+
+	return (write(1, buffer, i + marker));
+}
